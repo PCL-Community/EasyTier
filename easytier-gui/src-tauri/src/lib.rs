@@ -30,7 +30,7 @@ use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent}
 
 pub const AUTOSTART_ARG: &str = "--autostart";
 
-static INSTANCE_MANAGER: once_cell::sync::Lazy<Arc<NetworkInstanceManager>> =
+pub static INSTANCE_MANAGER: once_cell::sync::Lazy<Arc<NetworkInstanceManager>> =
     once_cell::sync::Lazy::new(|| Arc::new(NetworkInstanceManager::new()));
 
 static mut LOGGER_LEVEL_SENDER: once_cell::sync::Lazy<Option<NewFilterSender>> =
@@ -39,7 +39,7 @@ static mut LOGGER_LEVEL_SENDER: once_cell::sync::Lazy<Option<NewFilterSender>> =
 static RPC_RING_UUID: once_cell::sync::Lazy<uuid::Uuid> =
     once_cell::sync::Lazy::new(uuid::Uuid::new_v4);
 
-static CLIENT_MANAGER: once_cell::sync::OnceCell<manager::GUIClientManager> =
+pub static CLIENT_MANAGER: once_cell::sync::OnceCell<manager::GUIClientManager> =
     once_cell::sync::OnceCell::new();
 
 #[tauri::command]
@@ -300,7 +300,7 @@ fn check_sudo() -> bool {
     is_elevated
 }
 
-mod manager {
+pub mod manager {
     use super::*;
     use async_trait::async_trait;
     use dashmap::{DashMap, DashSet};
@@ -488,7 +488,7 @@ mod manager {
         }
     }
 
-    pub(super) struct GUIClientManager {
+    pub struct GUIClientManager {
         pub(super) storage: GUIStorage,
         rpc_manager: BidirectRpcManager,
     }
