@@ -42,3 +42,4 @@ easytier-gui/src-tauri/*.dll
 
 .direnv
 .flake-profile
+et.db*
